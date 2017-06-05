@@ -3,30 +3,53 @@ import {Component} from 'angular2/core';
 @Component({
     selector: 'my-app',
     template: `
-        <h1 
-          (click)="onSelect()"
-          [class.clicked]="showDetail === true"
-        >{{contact.firstName}} {{contact.lastName}}</h1>
-        <input [(ngModel)] = "contact.firstName" type="text"/>
-        <div *ngIf="showDetail === true">
-          Phone Number: {{contact.phone}} <br>
-          E-Mail: {{contact.email}}
-        </div>
+      <ul>
+        <li *ngFor="#contact of contacts"
+            (click)="onSelect(contact)"
+            [class.clicked]="showDetail === true">
+          {{contact.firstName}} {{contact.lastName}}
+        </li>
+      </ul>
+      <input [(ngModel)] = "selectedContact.firstName" type="text"/>
+      <div *ngIf="showDetail === true">
+        Phone Number: {{selectedContact.phone}} <br>
+        E-Mail: {{selectedContact.email}}
+      </div>
     `,
     styleUrls: ["../src/css/app.css"]
 })
 export class AppComponent {
 
-    public contact = {
-      firstName: "Dickson",
-      lastName: "Chow",
-      phone: "12345678",
-      email: "1234@gmail.com"
-    };
+    public contacts = [
+      {
+        firstName: "Dickson",
+        lastName: "Chow",
+        phone: "12345678",
+        email: "1234@gmail.com"
+      },
+      {
+        firstName: "Dick",
+        lastName: "Chan",
+        phone: "87654321",
+        email: "1234@gmail.com"
+      },
+      {
+        firstName: "Tai Man",
+        lastName: "Chan",
+        phone: "14725836",
+        email: "1234@gmail.com"
+      },
+      {
+        firstName: "Tom",
+        lastName: "Ho",
+        phone: "15935746",
+        email: "1234@gmail.com"
+      },
+    ];
 
-    public showDetail = false;
+    public selectedContact = {};
 
-    onSelect() {
-      this.showDetail = true;
+    onSelect(contact) {
+      this.selectedContact = contact;
     };
 }
